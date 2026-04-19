@@ -1,0 +1,158 @@
+/* ===============================
+   MapWithPoints.css
+================================= */
+
+.pageContainer {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Filter Bar */
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  padding: 1rem;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  /* ✅ removed position sticky — causes issues on mobile inside scroll containers */
+}
+
+.filterBar select,
+.filterBar input {
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.filterBar select:focus,
+.filterBar input:focus {
+  border-color: #000;
+  outline: none;
+}
+
+.filterBar button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.filterBar button:first-of-type {
+  background-color: #000;
+  color: #fff;
+}
+
+.filterBar button:last-of-type {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+/* ✅ Map + Detail side by side on desktop, stacked on mobile */
+.mapLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 800px) {
+  .mapLayout {
+    flex-direction: row;
+  }
+}
+
+/* Left Column */
+.leftColumn {
+  flex: 1;
+}
+
+.mapContainer {
+  height: 400px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.pointsList {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.pointsList::-webkit-scrollbar { width: 6px; }
+.pointsList::-webkit-scrollbar-thumb { background-color: #999; border-radius: 3px; }
+
+.pointItem {
+  cursor: pointer;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.pointItem:hover { background-color: #cceffb; }
+.pointItem.selected { background-color: #e0f7fa; font-weight: 700; color: #007acc; }
+
+.pointImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #007acc;
+  object-fit: cover;
+}
+
+.pointVehicle { font-size: 0.9rem; color: #555; display: block; }
+
+/* Detail View */
+.detailView {
+  flex: 1;
+  border: 1px solid #ccc;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  background-color: #fdfdfd;
+}
+
+.detailImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #000;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+.detailView h3 {
+  margin-top: 0;
+  font-weight: 700;
+  font-size: 1.4rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 0.3rem;
+}
+
+.detailView p { margin: 0.3rem 0; font-size: 1rem; }
+.detailView p strong { font-weight: 600; }
+
+.detailView button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}

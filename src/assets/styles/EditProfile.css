@@ -1,0 +1,225 @@
+.editProfileContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 80vh;
+  padding: 2rem;
+  background-color: #f5f5f5;
+}
+
+.editProfileCard {
+  max-width: 600px;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.editProfileHeader {
+  background-color: #000;
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+}
+
+.editProfileTitle {
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.editProfileContent {
+  padding: 2rem;
+}
+
+.profilePictureSection {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.profilePictureContainer {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.profilePicturePreview {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.uploadButton {
+  padding: 0.5rem 1rem;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.uploadButton:hover {
+  background-color: #333;
+}
+
+.formSection {
+  margin-bottom: 2rem;
+}
+
+.formField {
+  margin-bottom: 1.5rem;
+}
+
+.formLabel {
+  display: block;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.formInput {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.formInput:disabled {
+  background-color: #f5f5f5;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.formHelpText {
+  font-size: 0.875rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.buttonSection {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.saveButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  min-width: 120px;
+}
+
+.saveButton:hover:not(:disabled) {
+  background-color: #333;
+}
+
+.saveButton:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.cancelButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  min-width: 120px;
+}
+
+.cancelButton:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.loadingMessage {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .editProfileContainer {
+    padding: 1rem;
+  }
+
+  .editProfileCard {
+    max-width: 100%;
+  }
+
+  .editProfileHeader {
+    padding: 1.5rem;
+  }
+
+  .editProfileContent {
+    padding: 1.5rem;
+  }
+
+  .editProfileTitle {
+    font-size: 1.5rem;
+  }
+
+  .profilePicturePreview {
+    width: 120px;
+    height: 120px;
+  }
+
+  .buttonSection {
+    flex-direction: column;
+  }
+
+  .saveButton,
+  .cancelButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .editProfileContainer {
+    padding: 0.5rem;
+  }
+
+  .editProfileHeader {
+    padding: 1rem;
+  }
+
+  .editProfileContent {
+    padding: 1rem;
+  }
+
+  .profilePicturePreview {
+    width: 100px;
+    height: 100px;
+  }
+}

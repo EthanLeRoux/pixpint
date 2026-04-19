@@ -1,0 +1,92 @@
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+    box-sizing: border-box;
+}
+
+.main-text {
+    flex: 1 1 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 280px;
+    max-width: 600px;
+}
+
+.main-text h1 {
+    font-size: 2.8rem;
+    color: #111;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.main-text p {
+    font-size: 1.15rem;
+    color: #444;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.main-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 25px;
+}
+
+.main-buttons button {
+    padding: 12px 24px;
+    background-color: #FFA500;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.main-buttons button:hover {
+    background-color: #dd9001;
+}
+
+.main-image {
+    flex: 1 1 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 250px;
+}
+
+.main-image img {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 16px;
+    }
+
+    .main-buttons {
+        justify-content: center;
+    }
+
+    .main-text h1 {
+        font-size: 2.2rem;
+    }
+
+    .main-text p {
+        font-size: 1rem;
+    }
+}
