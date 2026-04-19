@@ -18,9 +18,14 @@ export default async function handler(req, res) {
     return res.status(200).json({
       id: user.id,
       name: user.name,
-      avatar: user.profile_image_urls?.px_170x170 || user.profile_image_urls?.large || null,
+      // Support both old and new Pixiv API profile image URL shapes
+      avatar:
+        user.profile_image_urls?.medium ||
+        user.profile_image_urls?.px_170x170 ||
+        user.profile_image_urls?.large ||
+        null,
       total_illusts: user.total_illusts ?? 0,
-      profile: user.profile || user.comment || ''
+      profile: user.comment || user.profile || '',
     });
   } catch (error) {
     return withErrorHandling(res, error);

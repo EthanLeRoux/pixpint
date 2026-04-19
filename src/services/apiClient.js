@@ -1,17 +1,29 @@
 const apiClient = async (path, options = {}) => {
-  const response = await fetch(path, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    ...options,
-  });
+  let response;
+  try {
+    response = await fetch(path, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      ...options,
+    });
+  } catch (networkErr) {
+    throw new Error(`Network error fetching ${path}: ${networkErr.message}`);
+  }
+
+  // Read the body once as text so we never hit "body already consumed"
+  const text = await response.text().catch(() => '');
 
   let body = null;
-  try {
-    body = await response.json();
-  } catch (err) {
-    const text = await response.text().catch(() => 'Unable to read response');
-    throw new Error(`Invalid JSON response from ${path}: ${text}`);
+  if (text) {
+    try {
+      body = JSON.parse(text);
+    } catch {
+      // Server returned non-JSON (HTML error page, empty body, etc.)
+      throw new Error(
+        `Invalid JSON response from ${path}: ${text.slice(0, 200)}`
+      );
+    }
   }
 
   if (!response.ok) {
@@ -23,4 +35,5 @@ const apiClient = async (path, options = {}) => {
 };
 
 export const get = (path) => apiClient(path, { method: 'GET' });
-export const post = (path, body) => apiClient(path, { method: 'POST', body: JSON.stringify(body) });
+export const post = (path, body) =>
+  apiClient(path, { method: 'POST', body: JSON.stringify(body) });

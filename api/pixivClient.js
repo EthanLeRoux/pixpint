@@ -54,11 +54,13 @@ export const fetchPixivUser = async (userId) => {
   }
 
   return retryOnAuthFailure(async (client) => {
-    const result = await client.user(userId);
-    if (!result || !result.user) {
+    // node-pixiv wraps the response; user detail is at result.user
+    const result = await client.userDetail(userId);
+    const user = result?.user ?? result;
+    if (!user) {
       throw new Error('Pixiv user not found');
     }
-    return result.user;
+    return user;
   });
 };
 
@@ -68,11 +70,23 @@ export const fetchUserIllustrations = async (userId, page = 1, limit = 20) => {
   }
 
   return retryOnAuthFailure(async (client) => {
-    const result = await client.search({ user_id: userId, page, per_page: limit });
+    // Use userIllusts (not search) to list a specific user's illustrations
+    const result = await client.userIllusts(userId, {
+      type: 'illust',
+      offset: (page - 1) * limit,
+    });
+
+    // node-pixiv may return illusts[] or works[] depending on version
+    const works = Array.isArray(result?.illusts)
+      ? result.illusts
+      : Array.isArray(result?.works)
+      ? result.works
+      : [];
+
     return {
-      works: Array.isArray(result.works) ? result.works : [],
-      total: typeof result.total === 'number' ? result.total : undefined,
-      nextUrl: result.next_url || null,
+      works,
+      total: typeof result?.total === 'number' ? result.total : undefined,
+      nextUrl: result?.next_url || null,
     };
   });
 };
@@ -83,10 +97,11 @@ export const fetchIllustrationDetails = async (illustId) => {
   }
 
   return retryOnAuthFailure(async (client) => {
-    const result = await client.work(illustId);
-    if (!result || !result.work) {
+    const result = await client.illustDetail(illustId);
+    const work = result?.illust ?? result?.work ?? result;
+    if (!work) {
       throw new Error('Pixiv illustration not found');
     }
-    return result.work;
+    return work;
   });
 };
