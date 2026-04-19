@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "firebase": "^12.2.1",
+    "node-pixiv": "^0.1.1",
     "pixiv-app-api": "^1.2.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
