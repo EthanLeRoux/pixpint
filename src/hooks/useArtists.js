@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getArtists, addArtist as addArtistService, updateArtist as updateArtistService, deleteArtist as deleteArtistService } from '../firebase/artistService.js';
+import { getArtists, addArtist as addArtistService } from '../services/artistApi.js';
 
 export const useArtists = () => {
   const [artists, setArtists] = useState([]);
@@ -10,8 +10,8 @@ export const useArtists = () => {
     try {
       setLoading(true);
       setError(null);
-      const data = await getArtists();
-      setArtists(data);
+      const response = await getArtists();
+      setArtists(response.items || []);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -26,27 +26,7 @@ export const useArtists = () => {
   const addArtist = async (artistData) => {
     try {
       await addArtistService(artistData);
-      await fetchArtists(); // Refresh the list
-    } catch (err) {
-      setError(err.message);
-      throw err;
-    }
-  };
-
-  const updateArtist = async (id, data) => {
-    try {
-      await updateArtistService(id, data);
-      await fetchArtists(); // Refresh the list
-    } catch (err) {
-      setError(err.message);
-      throw err;
-    }
-  };
-
-  const deleteArtist = async (id) => {
-    try {
-      await deleteArtistService(id);
-      await fetchArtists(); // Refresh the list
+      await fetchArtists();
     } catch (err) {
       setError(err.message);
       throw err;
@@ -58,8 +38,6 @@ export const useArtists = () => {
     loading,
     error,
     addArtist,
-    updateArtist,
-    deleteArtist,
-    refetch: fetchArtists
+    refetch: fetchArtists,
   };
 };

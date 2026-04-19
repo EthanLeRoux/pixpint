@@ -1,0 +1,62 @@
+.illustration-card {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.illustration-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+.illustration-image-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.illustration-image {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.illustration-body {
+  padding: 1rem;
+}
+
+.illustration-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.illustration-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.illustration-author {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.illustration-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.illustration-tag {
+  font-size: 0.8rem;
+  background: #eef2ff;
+  color: #3730a3;
+  padding: 0.3rem 0.55rem;
+  border-radius: 9999px;
+}

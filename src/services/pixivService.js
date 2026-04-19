@@ -1,29 +1,43 @@
-import PixivAppApi from 'pixiv-app-api';
+const serializeApiResponse = async (response) => {
+  if (!response.ok) {
+    const payload = await response.json().catch(() => null);
+    const message = payload?.error || `API request failed with status ${response.status}`;
+    throw new Error(message);
+  }
 
-const pixiv = new PixivAppApi(
-  import.meta.env.PIXIV_USERNAME || import.meta.env.VITE_PIXIV_USERNAME,
-  import.meta.env.PIXIV_PASSWORD || import.meta.env.VITE_PIXIV_PASSWORD
-);
-
-export const login = async () => {
   try {
-    await pixiv.login();
-  } catch (error) {
-    console.error('Pixiv login failed:', error);
-    throw error;
+    return await response.json();
+  } catch (parseError) {
+    const text = await response.text().catch(() => 'Unable to read response body');
+    throw new Error(`Invalid JSON response from API: ${text.slice(0, 120)}`);
   }
 };
 
 export const getUserDetails = async (userId) => {
-  try {
-    const userData = await pixiv.userDetail(userId);
-    return {
-      name: userData.user.name,
-      profileImage: userData.user.profile_image_urls.px_170x170,
-      pixivUrl: `https://www.pixiv.net/users/${userId}`
-    };
-  } catch (error) {
-    console.error('Error fetching user details:', error);
-    throw error;
+  if (!userId) {
+    throw new Error('Missing userId');
   }
+
+  const response = await fetch(`/api/user/${encodeURIComponent(userId)}`);
+  return serializeApiResponse(response);
+};
+
+export const getUserIllustrations = async (userId, page = 1, limit = 20) => {
+  if (!userId) {
+    throw new Error('Missing userId');
+  }
+
+  const response = await fetch(
+    `/api/illustrations?userId=${encodeURIComponent(userId)}&page=${encodeURIComponent(page)}&limit=${encodeURIComponent(limit)}`
+  );
+  return serializeApiResponse(response);
+};
+
+export const getIllustration = async (illustId) => {
+  if (!illustId) {
+    throw new Error('Missing illustId');
+  }
+
+  const response = await fetch(`/api/illustration?illustId=${encodeURIComponent(illustId)}`);
+  return serializeApiResponse(response);
 };

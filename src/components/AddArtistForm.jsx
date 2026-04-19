@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useArtists } from '../hooks/useArtists';
-import { getUserDetails } from '../services/pixivService';
+import { getUserDetails } from '../services/illustrationApi.js';
 import './AddArtistForm.css';
 
 const AddArtistForm = () => {
@@ -14,9 +14,9 @@ const AddArtistForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -26,21 +26,15 @@ const AddArtistForm = () => {
     setError(null);
 
     try {
-      // Fetch Pixiv profile data
-      const pixivData = await getUserDetails(formData.pixivUserId);
-
-      // Combine form data with Pixiv data
+      const userData = await getUserDetails(formData.pixivUserId);
       const artistData = {
-        name: formData.name,
+        name: formData.name || userData.name,
         pixivUserId: formData.pixivUserId,
-        pixivUrl: pixivData.pixivUrl,
-        profileImage: pixivData.profileImage
+        pixivUrl: `https://www.pixiv.net/users/${formData.pixivUserId}`,
+        profileImage: userData.avatar,
       };
 
-      // Store in Firestore
       await addArtist(artistData);
-
-      // Reset form
       setFormData({ name: '', pixivUserId: '' });
     } catch (err) {
       setError(err.message);
@@ -61,7 +55,7 @@ const AddArtistForm = () => {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          required
+          placeholder="Optional display name"
         />
       </div>
 
