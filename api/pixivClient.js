@@ -2,6 +2,10 @@ import Pixiv from 'node-pixiv';
 
 const { PIXIV_USERNAME, PIXIV_PASSWORD } = process.env;
 
+if (!PIXIV_USERNAME || !PIXIV_PASSWORD) {
+  throw new Error('Missing PIXIV_USERNAME or PIXIV_PASSWORD environment variables');
+}
+
 let pixivClient = null;
 let loginPromise = null;
 
